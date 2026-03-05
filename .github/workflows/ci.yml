@@ -32,7 +32,7 @@ jobs:
 
       - name: Show env github variables
         run: |
-          echo "Node: ${{ vars.NODE_VERSION }}"
+          echo "Node: ${{ vars.APP_VERSION }}"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
