@@ -24,14 +24,26 @@ jobs:
       BUILD_DIR: dist
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Show variables
+      - name: Show env local variables
         run: |
           echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VERSION }}"
 
-      # Variables a nivel de step (solo para este step)
+      - name: Show env github variables
+        run: |
+          echo "Node: ${{ vars.NODE_VERSION }}"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION }}   # variable del repo
+
       - name: Build
         run: npm run build
         env:
-          APP_VERSION: "2.0.0"
+          APP_VERSION: ${{ vars.APP_VERSION }}     # pasa la var al script build.js
+
+
+        
+
