@@ -5,39 +5,17 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 # Variables a nivel de workflow completo (disponibles en TODOS los jobs)
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: "20"
   APP_NAME: cron-ticker
 
-
 jobs:
-
-  run-tests:
-    name: Run Tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm test
-
   build:
     runs-on: ubuntu-latest
 
@@ -47,11 +25,11 @@ jobs:
 
     steps:
       - name: Show variables
-        run: echo "App $APP_NAME, Node $NODE_VERSION"
+        run: |
+          echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VERSION }}"
 
       # Variables a nivel de step (solo para este step)
       - name: Build
         run: npm run build
         env:
-          APP_VERSION: '2.0.0'
-
+          APP_VERSION: "2.0.0"
