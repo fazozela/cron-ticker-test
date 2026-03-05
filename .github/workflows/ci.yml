@@ -24,6 +24,8 @@ jobs:
       BUILD_DIR: dist
 
     steps:
+      - uses: actions/checkout@v3
+
       - name: Show variables
         run: |
           echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VERSION }}"
