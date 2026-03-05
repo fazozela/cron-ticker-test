@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Show variables
-        run: echo "App ${{APP_NAME}}, Node ${{NODE_VERSION}}"
+        run: echo "App $APP_NAME, Node $NODE_VERSION"
 
       # Variables a nivel de step (solo para este step)
       - name: Build
