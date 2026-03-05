@@ -10,24 +10,26 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-jobs:
+# Variables a nivel de workflow completo (disponibles en TODOS los jobs)
+env:
+  NODE_VERSION: '20'
+  APP_NAME: cron-ticker
 
-  run-tests:
-    name: Run Tests
+jobs:
+  build:
     runs-on: ubuntu-latest
 
+    # Variables a nivel de job (disponibles en TODOS los steps de este job)
+    env:
+      BUILD_DIR: dist
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Show variables
+        run: echo "App:\ $APP_NAME, Node:\ $NODE_VERSION"
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
+      # Variables a nivel de step (solo para este step)
+      - name: Build
+        run: npm run build
+        env:
+          APP_VERSION: '2.0.0'
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm test
