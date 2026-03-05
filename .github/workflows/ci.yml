@@ -21,7 +21,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'                # <-- cache integrado (lo explicamos en el siguiente bloque)
       - run: npm ci
       - run: npm run lint
 
@@ -35,7 +34,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
       - run: npm ci
       - name: Run tests with coverage
         run: npm run test:coverage
@@ -50,6 +48,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
       - run: npm ci
       - run: npm run build
