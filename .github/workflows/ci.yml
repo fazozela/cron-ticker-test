@@ -12,9 +12,10 @@ env:
 
 jobs:
 
-  test:
-    name: 🧪 Tests
+  build:
+    name: 🏗️ Build
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -22,14 +23,16 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
       - run: npm ci
-      - name: Run tests with coverage
-        run: npm run test:coverage
-        # genera carpeta coverage/ con HTML, lcov, texto
+      - name: Build app
+        run: npm run build
+        env:
+          APP_VERSION: ${{ vars.APP_VERSION || '1.0.0' }}
+          # build.js usa GITHUB_SHA y GITHUB_REF_NAME automáticamente
 
-      - name: Upload coverage report
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
-        if: always()                    # subir aunque los tests fallen
         with:
-          name: coverage-${{ github.sha }}
-          path: coverage/
-          retention-days: 7             # se borra automáticamente
+          name: build-${{ github.sha }}
+          path: dist/
+          retention-days: 7
+
