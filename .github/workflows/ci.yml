@@ -31,6 +31,10 @@ jobs:
       - name: Show env github variables
         run: |
           echo "App: ${{ vars.APP_VERSION }}"
+      
+      - name: Show env github expressions
+        run: |
+          echo "App: ${{ toJSON(github) }}" 
 
       - name: Setup Node.js 
         uses: actions/setup-node@v4
